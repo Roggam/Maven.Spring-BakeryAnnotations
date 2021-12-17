@@ -2,10 +2,13 @@ package com.zipcodewilmington.bakery.services;
 
 import com.zipcodewilmington.bakery.models.Baker;
 import com.zipcodewilmington.bakery.repositories.BakerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BakerService {
     private BakerRepository repository;
-
+@Autowired
     public BakerService(BakerRepository repository) {
         this.repository = repository;
     }
@@ -25,6 +28,7 @@ public class BakerService {
     public Baker update(Long id, Baker newBakerData) {
         Baker originalBaker = repository.findById(id).get();
         originalBaker.setName(newBakerData.getName());
+        originalBaker.setEmployeeId(newBakerData.getEmployeeId());
         originalBaker.setSpecialty(newBakerData.getSpecialty());
         return repository.save(originalBaker);
     }
